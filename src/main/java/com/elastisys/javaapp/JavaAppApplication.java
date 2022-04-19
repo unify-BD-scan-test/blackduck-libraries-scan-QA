@@ -19,12 +19,14 @@ import java.nio.charset.StandardCharsets;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
+import com.elastisys.javaapp.Test;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import com.thoughtworks.xstream.XStream;
-
+import com.thoughtworks.xstream.XStreamer;
+import java.io.ObjectStreamException;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -109,18 +111,19 @@ public class JavaAppApplication {
 				+ "\"fetchFromFile\":\"false\",\"service\":\"true\",\"isEom\":\"true\",*#@!}";
             String response = JsonSanitizer.sanitize(jsonString);
 
-            List <String> list = new ArrayList <String>();
-            list.add("a");
-            list.add("b");
-
-            XStream xStream = new XStream();
-            xStream.alias("Strings", List.class);
-            xStream.alias("String", String.class);
-            String result = xStream.toXML(list);
-            // new Exception("Stack trace").printStackTrace();
-            // new Throwable().printStackTrace();
-            return response + result;
-        }
+            Test t = new Test(50,10);
+            int res = t.HelloWorld();
+            String xml = ""; 
+            try {
+                XStream xstream = new XStream();
+                xstream.alias("test", Test.class);
+                xml = new XStreamer().toXML(xstream, t);
+            }
+            catch (Exception e) {
+                // System.out.println(e);
+            }
+            return response + xml;
+        };
 
 
 }
