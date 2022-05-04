@@ -66,4 +66,4 @@ jobs:
         run : docker exec app bash -c "/jdk/bin/java -jar arthas-boot.jar --attach-only --select application.jar"
 
       - name: Run Arvos
-        run : docker run --rm --net host -e TRACE_TIME=2 -v /sys/kernel/debug:/sys/kernel/debug:rw -v /lib/modules/$(uname -r):/lib/modules/$(uname -r) -v /usr/src:/usr/src --privileged --pid container:app ayoubensalem/arvos-poc $(docker exec -ti app pidof java)
+        run : docker run --rm --net host -e TRACE_TIME=2 -v /sys/kernel/debug:/sys/kernel/debug:rw -v /lib/modules/$(uname -r):/lib/modules/$(uname -r) -v /usr/src:/usr/src --privileged --pid container:app ayoubensalem/arvos-poc $(docker exec app pidof java)
