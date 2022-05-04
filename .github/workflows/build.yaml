@@ -7,6 +7,10 @@ on:
   push:
     branches:
       - main
+
+env:
+  TEST_TAG: ayoubensalem/myapp:test
+
 jobs:
   build:
     name: Build
@@ -46,10 +50,11 @@ jobs:
         with:
           context: .
           push: false
-          tags: app:latest
+          # load: true
+          tags: ${{ env.TEST_TAG }}
 
       - name: Run container
-        run: docker run -d --name app --net host -p 8080:8080 app:latest 
+        run: docker run -d --name app --net host -p 8080:8080 ${{ env.TEST_TAG }}
 
       - name: Wait for app
         run: ./wait-for-it.sh -t 120 localhost:8080  -- echo "Application has started"
