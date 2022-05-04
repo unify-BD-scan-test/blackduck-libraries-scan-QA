@@ -45,4 +45,4 @@ jobs:
         run: ./wait-for-it.sh -t 120 localhost:8080  -- echo "Application has started"
       
       - name: Hit endpoint
-        run: curl -Ikv http://localhost:8080/vulnerable
+        run: curl -v http://localhost:8080/vulnerable
