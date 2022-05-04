@@ -60,7 +60,7 @@ jobs:
         run: ./wait-for-it.sh -t 120 localhost:8080  -- echo "Application has started"
       
       - name: Continuously Hitting endpoints
-        run: nohum ./script.sh &
+        run: nohup ./script.sh &
 
       - name: Run Arthas
         run : docker exec app bash -c "/jdk/bin/java -jar arthas-boot.jar --attach-only --select application.jar"
