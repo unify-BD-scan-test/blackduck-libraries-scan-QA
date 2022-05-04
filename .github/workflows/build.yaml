@@ -8,8 +8,8 @@ on:
     branches:
       - main
 jobs:
-  myjob:
-    name: My job
+  build:
+    name: Build
     #Run on Ubuntu using the latest version
     runs-on: ubuntu-20.04
     #Job's steps
@@ -36,10 +36,19 @@ jobs:
       #Package 
       - name: Package
         run: mvn -U package
-      
-      # Run app
-      - name: Run App 
-        run: nohup java -jar target/java-app-0.0.1-SNAPSHOT.jar &
+
+      -
+        name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v1
+      -
+        name: Build and push
+        uses: docker/build-push-action@v2
+        with:
+          push: false
+          tags: app:latest
+
+      - name: Run container
+        run: docker run -d --name app --net host -p 8080:8080 app:latest 
 
       - name: Wait for app
         run: ./wait-for-it.sh -t 120 localhost:8080  -- echo "Application has started"
