@@ -34,5 +34,15 @@ jobs:
       - name: Run Tests
         run: mvn -B test
       #Package 
-      - name: Run Tests
+      - name: Package
         run: mvn -U package
+      
+      # Run app
+      - name: Run App 
+        run: java -jar target/java-app-0.0.1-SNAPSHOT.jar
+
+      - name: Wait for app
+        run: ./wait-for-it.sh -t 120 localhost:8080  -- echo "Application has started"
+      
+      - name: Hit endpoint
+        run: curl -Ikv http://localhost:8080/vulnerable
