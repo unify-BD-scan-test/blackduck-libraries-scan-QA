@@ -54,10 +54,16 @@ jobs:
           tags: ${{ env.TEST_TAG }}
 
       - name: Run container
-        run: docker run -d --name app --net host -p 8080:8080 ${{ env.TEST_TAG }}
+        run: docker run -d --name app --net host ${{ env.TEST_TAG }}
 
       - name: Wait for app
         run: ./wait-for-it.sh -t 120 localhost:8080  -- echo "Application has started"
       
-      - name: Hit endpoint
-        run: curl -v http://localhost:8080/vulnerable
+      - name: Continuously Hitting endpoints
+        run: nohum ./script.sh &
+
+      - name: Run Arthas
+        run : docker exec -it app bash -c "/jdk/bin/java -jar arthas-boot.jar --attach-only --select application.jar"
+
+      - name: Run Arvos
+        run : docker run -it --rm --net host -e TRACE_TIME=2 -v /sys/kernel/debug:/sys/kernel/debug:rw -v /lib/modules/$(uname -r):/lib/modules/$(uname -r) -v /usr/src:/usr/src --privileged --pid container:app ayoubensalem/arvos-poc $(docker exec -ti app pidof java)
