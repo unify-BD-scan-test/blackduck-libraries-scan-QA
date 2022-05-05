@@ -125,5 +125,13 @@ public class JavaAppApplication {
             return response + xml;
         };
 
+    @GetMapping("/hello")
+        public String hello(){
+
+            String response = "Hello World;"
+
+            return response;
+        };
+
 
 }
