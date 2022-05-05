@@ -107,7 +107,7 @@ public class JavaAppApplication {
     @GetMapping("/vulnerable")
         public String sanitize(){
 
-            String jsonString = "{\"key1\":\"value1\",\"type\":\"Booking\",\"sid\":\"A43521\",\"region\":\"ASIA\","
+            String jsonString = "{\"key1\":\"value3\",\"type\":\"Booking\",\"sid\":\"A43521\",\"region\":\"ASIA\","
 				+ "\"fetchFromFile\":\"false\",\"service\":\"true\",\"isEom\":\"true\",*#@!}";
             String response = JsonSanitizer.sanitize(jsonString);
 
