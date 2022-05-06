@@ -123,15 +123,15 @@ public class JavaAppApplication {
                 // System.out.println(e);
             }
             return response + xml;
-        };
+    }
 
     @GetMapping("/hello")
         public String hello(){
 
-            String response = "Hello World";
+            String response = "Hello Arvos";
 
             return response;
-        };
+    }
 
 
 }
