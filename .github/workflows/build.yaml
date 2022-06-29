@@ -70,7 +70,9 @@ jobs:
         run: ./workload-generator.sh 
 
       - name: Generate Workload - Collect stack traces
-        run: sleep 10 && ./workload-generator.sh 
+        run: |
+          sleep 10
+          ./workload-generator.sh 
 
       - name: Produce Report
         run: | 
