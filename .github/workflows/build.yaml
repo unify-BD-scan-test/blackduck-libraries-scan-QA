@@ -9,6 +9,7 @@ on:
       - main
 
 env:
+  APP_PORT: 8080
   TEST_TAG: ayoubensalem/myapp:test
 
 jobs:
@@ -57,7 +58,7 @@ jobs:
         run: docker run -d --name app --net host ${{ env.TEST_TAG }}
 
       - name: Wait for application to start
-        run: ./wait-for-it.sh -t 120 localhost:8080  -- echo "Application has started"
+        run: ./wait-for-it.sh -t 120 localhost:${{ APP_PORT }}  -- echo "Application has started"
       
       - name: Continuously Hitting Application Endpoints
         run: nohup ./script.sh &
