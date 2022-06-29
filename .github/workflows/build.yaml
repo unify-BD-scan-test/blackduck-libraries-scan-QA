@@ -64,7 +64,7 @@ jobs:
         run : docker exec app bash -c "/jdk/bin/java -jar arthas-boot.jar --attach-only --select application.jar"
 
       - name: Run Vulnerability Tracer for 2 minutes
-        run : docker run --rm --net host -e TRACE_TIME=2 -v $(pwd)/pom.xml:/pom.xml -v /sys/kernel/debug:/sys/kernel/debug:rw -v /lib/modules/$(uname -r):/lib/modules/$(uname -r) -v /usr/src:/usr/src --privileged --pid container:app ayoubensalem/arvos-poc $(docker exec app pidof java) --pom /pom.xml
+        run : docker run -d --name tracer --net host -e TRACE_TIME=2 -v $(pwd)/pom.xml:/pom.xml -v /sys/kernel/debug:/sys/kernel/debug:rw -v /lib/modules/$(uname -r):/lib/modules/$(uname -r) -v /usr/src:/usr/src --privileged --pid container:app ayoubensalem/arvos-poc $(docker exec app pidof java) --pom /pom.xml
 
       - name: Generate Workload - Heat UP Arthas
         run: ./workload-generator.sh 
