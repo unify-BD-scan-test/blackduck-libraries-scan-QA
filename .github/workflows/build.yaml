@@ -72,7 +72,7 @@ jobs:
       - name: Generate Workload - Collect stack traces
         run: ./workload-generator.sh 
 
-      - name: Show Report
+      - name: Produce Report
         run: | 
-          docker logs tracer
+          docker wait tracer && docker logs tracer
           exit $(docker inspect tracer --format "{{.State.ExitCode}}")
