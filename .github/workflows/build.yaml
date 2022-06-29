@@ -76,5 +76,5 @@ jobs:
 
       - name: Produce Report
         run: | 
-          docker wait tracer && docker logs tracer
+          docker logs -f tracer
           exit $(docker inspect tracer --format "{{.State.ExitCode}}")
