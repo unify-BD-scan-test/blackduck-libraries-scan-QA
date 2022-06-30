@@ -68,12 +68,12 @@ jobs:
 
       - name: Generate Workload - Heat UP Arthas
         run: |
-          sleep 10
+          sleep 15
           ./workload-generator.sh 
 
       - name: Generate Workload - Collect stack traces
         run: |
-          sleep 15
+          sleep 5
           ./workload-generator.sh 
 
       - name: Produce Report
