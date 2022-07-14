@@ -112,7 +112,7 @@ public class JavaAppApplication {
             String response = JsonSanitizer.sanitize(jsonString);
 
             Test t = new Test(50,10);
-            int res = t.HelloWorld();
+            
             String xml = ""; 
             try {
                 XStream xstream = new XStream();
@@ -128,7 +128,7 @@ public class JavaAppApplication {
     @GetMapping("/hello")
         public String hello(){
 
-            String response = "Hello CNOSA Team";
+            String response = "Hello World";
 
             return response;
     }

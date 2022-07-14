@@ -14,15 +14,9 @@ class JavaAppApplicationTests {
 
 	@Test
 	void contextLoads() {
-	try {
-			Thread.sleep(60000);
-		 } catch (InterruptedException e) {
-		 	throw new RuntimeException(e);
-		 }
 	}
 
 	@Test
-	@RepeatedTest(10)
 	public void testApplication() {
 		JavaAppApplication javaApp = new JavaAppApplication();
 		String result = javaApp.sanitize();
