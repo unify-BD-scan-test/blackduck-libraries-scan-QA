@@ -45,7 +45,7 @@ jobs:
         run: pip install arvos
 
       - name: Run Vulnerability Tracer for 2 minutes
-        run : arvos scan --detach --jar target/java-app-0.0.1-SNAPSHOT.jar --pom pom.xml 
+        run : arvos scan --detach --java 17 --jar target/java-app-0.0.1-SNAPSHOT.jar --pom pom.xml 
 
       - name: Generate Workload - Heat UP Arthas
         run: |
