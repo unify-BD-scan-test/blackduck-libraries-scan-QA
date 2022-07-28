@@ -47,15 +47,22 @@ jobs:
       - name: Run Vulnerability Tracer for 2 minutes
         run : arvos scan --detach --java 17 --jar target/java-app-0.0.1-SNAPSHOT.jar --pom pom.xml 
 
-      - name: Generate Workload - Heat UP Arthas
-        run: |
-          sleep 15
-          ./workload-generator.sh 
+      # - name: Generate Workload - Heat UP Arthas
+      #   run: |
+      #     sleep 15
+      #     ./workload-generator.sh 
 
-      - name: Generate Workload - Collect stack traces
-        run: |
-          sleep 5
-          ./workload-generator.sh 
+      # - name: Generate Workload - Collect stack traces
+      #   run: |
+      #     sleep 5
+      #     ./workload-generator.sh 
+
+      - name: Generate Workload
+        uses: nick-fields/retry@v2
+        with:
+          retry_wait_seconds: 10
+          max_attempts: 3
+          command: ./workload-generator.sh
 
       - name: Produce Report
         run: | 
