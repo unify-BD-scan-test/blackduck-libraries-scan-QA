@@ -61,6 +61,7 @@ jobs:
         uses: nick-fields/retry@v2
         with:
           retry_wait_seconds: 10
+          timeout_minutes: 1
           max_attempts: 3
           command: ./workload-generator.sh
 
