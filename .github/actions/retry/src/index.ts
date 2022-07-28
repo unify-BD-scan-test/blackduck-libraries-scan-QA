@@ -180,9 +180,8 @@ async function runAction() {
       // just keep overwriting attempts output
       setOutput(OUTPUT_TOTAL_ATTEMPTS_KEY, attempt);
       await runCmd(attempt);
-      info(`Command completed after ${attempt} attempt().`);
+      info(`Command completed after ${attempt} attempt(s).`);
       if (RETRY_ON !== 'success') {
-        info("really");
         break;
       }
       info('Retrying again after success');
