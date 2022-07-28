@@ -844,8 +844,13 @@ function runAction() {
                     return [4 /*yield*/, runCmd(attempt)];
                 case 4:
                     _a.sent();
-                    core_1.info("Command completed after " + attempt + " attempt(s).");
-                    return [3 /*break*/, 13];
+                    core_1.info("Command completed after " + attempt + " attempt().");
+                    if (RETRY_ON !== 'success') {
+                        core_1.info("really");
+                        return [3 /*break*/, 13];
+                    }
+                    core_1.info('Retrying again after success');
+                    return [3 /*break*/, 12];
                 case 5:
                     error_2 = _a.sent();
                     if (!(attempt === MAX_ATTEMPTS)) return [3 /*break*/, 6];
