@@ -64,6 +64,7 @@ jobs:
           timeout_minutes: 1
           retry_on: any
           max_attempts: 3
+          retry_on_exit_code: 0
           command: ./workload-generator.sh
 
       - name: Produce Report
