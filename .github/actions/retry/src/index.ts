@@ -182,6 +182,7 @@ async function runAction() {
       await runCmd(attempt);
       info(`Command completed after ${attempt} attempt(s).`);
       if (RETRY_ON !== 'success') {
+        info("really");
         break;
       }
       info('Retrying again after success');
