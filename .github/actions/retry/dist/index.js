@@ -835,10 +835,10 @@ function runAction() {
                     attempt = 1;
                     _a.label = 2;
                 case 2:
-                    if (!(attempt <= MAX_ATTEMPTS)) return [3 /*break*/, 13];
+                    if (!(attempt <= MAX_ATTEMPTS)) return [3 /*break*/, 14];
                     _a.label = 3;
                 case 3:
-                    _a.trys.push([3, 5, , 12]);
+                    _a.trys.push([3, 6, , 13]);
                     // just keep overwriting attempts output
                     core_1.setOutput(OUTPUT_TOTAL_ATTEMPTS_KEY, attempt);
                     return [4 /*yield*/, runCmd(attempt)];
@@ -846,27 +846,29 @@ function runAction() {
                     _a.sent();
                     core_1.info("Command completed after " + attempt + " attempt(s).");
                     if (RETRY_ON !== 'success') {
-                        return [3 /*break*/, 13];
+                        return [3 /*break*/, 14];
                     }
-                    core_1.info('Retrying again after success');
-                    return [3 /*break*/, 12];
+                    return [4 /*yield*/, retryWait()];
                 case 5:
-                    error_2 = _a.sent();
-                    if (!(attempt === MAX_ATTEMPTS)) return [3 /*break*/, 6];
-                    throw new Error("Final attempt failed. " + error_2.message);
+                    _a.sent();
+                    return [3 /*break*/, 13];
                 case 6:
-                    if (!(!done && RETRY_ON === 'error')) return [3 /*break*/, 7];
+                    error_2 = _a.sent();
+                    if (!(attempt === MAX_ATTEMPTS)) return [3 /*break*/, 7];
+                    throw new Error("Final attempt failed. " + error_2.message);
+                case 7:
+                    if (!(!done && RETRY_ON === 'error')) return [3 /*break*/, 8];
                     // error: timeout
                     throw error_2;
-                case 7:
-                    if (!(RETRY_ON_EXIT_CODE && RETRY_ON_EXIT_CODE !== exit)) return [3 /*break*/, 8];
-                    throw error_2;
                 case 8:
-                    if (!(exit > 0 && RETRY_ON === 'timeout')) return [3 /*break*/, 9];
+                    if (!(RETRY_ON_EXIT_CODE && RETRY_ON_EXIT_CODE !== exit)) return [3 /*break*/, 9];
+                    throw error_2;
+                case 9:
+                    if (!(exit > 0 && RETRY_ON === 'timeout')) return [3 /*break*/, 10];
                     // error: error
                     throw error_2;
-                case 9: return [4 /*yield*/, runRetryCmd()];
-                case 10:
+                case 10: return [4 /*yield*/, runRetryCmd()];
+                case 11:
                     _a.sent();
                     if (WARNING_ON_RETRY) {
                         core_1.warning("Attempt " + attempt + " failed. Reason: " + error_2.message);
@@ -874,12 +876,12 @@ function runAction() {
                     else {
                         core_1.info("Attempt " + attempt + " failed. Reason: " + error_2.message);
                     }
-                    _a.label = 11;
-                case 11: return [3 /*break*/, 12];
-                case 12:
+                    _a.label = 12;
+                case 12: return [3 /*break*/, 13];
+                case 13:
                     attempt++;
                     return [3 /*break*/, 2];
-                case 13: return [2 /*return*/];
+                case 14: return [2 /*return*/];
             }
         });
     });

@@ -184,7 +184,7 @@ async function runAction() {
       if (RETRY_ON !== 'success') {
         break;
       }
-      info('Retrying again after success');
+      await retryWait();
     } catch (error) {
       if (attempt === MAX_ATTEMPTS) {
         throw new Error(`Final attempt failed. ${error.message}`);
