@@ -10,7 +10,6 @@ on:
 
 env:
   APP_PORT: 8080
-  TEST_TAG: ayoubensalem/myapp:test
 
 jobs:
   build:
