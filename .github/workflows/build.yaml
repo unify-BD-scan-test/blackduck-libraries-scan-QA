@@ -42,7 +42,7 @@ jobs:
         name: Install ARVOS
         run: pip install arvos
 
-      - name: Run Vulnerability Tracer for 2 minutes
+      - name: Run Arvos Scanner
         run : arvos scan --detach --java 17 --jar target/java-app-0.0.1-SNAPSHOT.jar --pom pom.xml 
 
       - name: Generate Workload
@@ -53,6 +53,9 @@ jobs:
           retry_on: success
           max_attempts: 3
           command: ./workload-generator.sh
+
+      - name: Stop Arvos Scanner
+        run : arvos --stop
 
       - name: Produce Report
         run: | 
