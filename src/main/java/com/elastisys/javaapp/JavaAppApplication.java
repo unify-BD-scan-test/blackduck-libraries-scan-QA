@@ -134,7 +134,7 @@ public class JavaAppApplication {
     }
 
     @GetMapping("/hello")
-        public string hello() {
+        public String hello() {
             String msg = "Hello World";
             return msg;
         }
