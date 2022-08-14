@@ -92,24 +92,22 @@ public class JavaAppApplication {
     }
 
 
-	@GetMapping("/decompress")
-		public String decompress(@RequestParam(value = "data", defaultValue = "example data") String data) {
-		byte[] original = data.getBytes(StandardCharsets.UTF_8);
-        byte[] compressed = compress(original);
-        byte[] decompressed = decompress(compressed);
-		String output = "Original: " + new String(original) + "\n"; 
-		output += "Compressed: " + new String(compressed) + "\n"; 
-		output += "Decompressed: " + new String(decompressed);
+	// @GetMapping("/decompress")
+	// 	public String decompress(@RequestParam(value = "data", defaultValue = "example data") String data) {
+	// 	byte[] original = data.getBytes(StandardCharsets.UTF_8);
+    //     byte[] compressed = compress(original);
+    //     byte[] decompressed = decompress(compressed);
+	// 	String output = "Original: " + new String(original) + "\n"; 
+	// 	output += "Compressed: " + new String(compressed) + "\n"; 
+	// 	output += "Decompressed: " + new String(decompressed);
 
-		return output;
-	}
+	// 	return output;
+	// }
 
-    @GetMapping("/vulnerable")
-        public String sanitize(){
+    @GetMapping("/xstream")
+        public String xstream(){
 
-            String jsonString = "{\"key1\":\"value1\",\"type\":\"Booking\",\"sid\":\"A435211\",\"region\":\"ASIA\","
-				+ "\"fetchFromFile\":\"false\",\"service\":\"true\",\"isEom\":\"true\",*#@!}";
-            String response = JsonSanitizer.sanitize(jsonString);
+ 
 
             Test t = new Test(50,10);
             
@@ -122,16 +120,23 @@ public class JavaAppApplication {
             catch (Exception e) {
                 // System.out.println(e);
             }
-            return response + xml;
+            return  xml;
     }
 
-    @GetMapping("/hello")
-        public String hello(){
+    @GetMapping("/sanitize")
+        public String sanitize(){
 
-            String response = "Hello World";
+           String jsonString = "{\"key1\":\"value1\",\"type\":\"Booking\",\"sid\":\"A435211\",\"region\":\"ASIA\","
+				+ "\"fetchFromFile\":\"false\",\"service\":\"true\",\"isEom\":\"true\",*#@!}";
+            String response = JsonSanitizer.sanitize(jsonString);
 
             return response;
     }
 
+    @GetMapping("/hello")
+        public string hello() {
+            String msg = "Hello World";
+            return msg;
+        }
 
 }
