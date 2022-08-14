@@ -7,6 +7,10 @@ on:
   push:
     branches:
       - main
+      - 'feature/**'
+  pull_request:
+    branches:
+      - main
 
 env:
   APP_PORT: 8080
