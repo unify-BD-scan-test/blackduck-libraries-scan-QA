@@ -17,7 +17,7 @@ env:
 
 jobs:
   build:
-    name: Build
+    name: Arvos Dynamic Vulnerability Checker
     #Run on Ubuntu using the latest version
     runs-on: ubuntu-20.04
     #Job's steps
