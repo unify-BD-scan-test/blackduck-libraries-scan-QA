@@ -47,7 +47,7 @@ jobs:
         run: pip install arvos
 
       - name: Run Arvos Scanner
-        run : arvos scan --detach --java 17 --jar target/java-app-0.0.1-SNAPSHOT.jar --pom pom.xml 
+        run : arvos scan --detach --java 17 --jar target/java-app-0.0.1-SNAPSHOT.jar --pom pom.xml --save-report csv
 
       - name: Generate Workload
         uses: ./.github/actions/retry
@@ -65,3 +65,10 @@ jobs:
         run: | 
           docker logs -f tracer
           exit $(docker inspect tracer --format "{{.State.ExitCode}}")
+
+      - name: Archive Report
+        uses: actions/upload-artifact@v3
+        if: always()
+        with:
+          name: arvos-report
+          path: ~/arvos-reports/arvos-report.csv
