@@ -38,17 +38,19 @@ jobs:
           path: ~/.m2
           key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
           restore-keys: ${{ runner.os }}-m2
-      #Package 
+      #Package the application
       - name: Package Application 
         run: mvn -U package
 
-      -
-        name: Install ARVOS
+      # Install ARVOS command line tool ( Dynamic vulnerability checking )
+      - name: Install ARVOS
         run: pip install arvos
 
+      # Run the application, and scan it with arvos
       - name: Run Arvos Scanner
         run : arvos scan --detach --java 17 --jar target/java-app-0.0.1-SNAPSHOT.jar --pom pom.xml --save-report csv
 
+      # Generate some workload by hitting some endpoints
       - name: Generate Workload
         uses: ./.github/actions/retry
         with:
@@ -58,14 +60,17 @@ jobs:
           max_attempts: 3
           command: ./workload-generator.sh
 
+      # Stop arvos
       - name: Stop Arvos Scanner
         run : arvos --stop
-
+      
+      #  Print the report on the console
       - name: Produce Report
         run: | 
           docker logs -f tracer
           exit $(docker inspect tracer --format "{{.State.ExitCode}}")
 
+      # Archive the report as a csv build artifact
       - name: Archive Report
         uses: actions/upload-artifact@v3
         if: always()
