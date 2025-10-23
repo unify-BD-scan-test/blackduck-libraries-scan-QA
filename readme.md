@@ -24,4 +24,4 @@ The repo comes with a github action that demonstrates the use of [ARVOS](https:/
 > **Important** 
 
  - Dynamic analysis finds vulnerabilities in a runtime environment while the code is being executed. 
- - In case of an idle application, arvos scan will not catch any vulnerability.
+ - In case of an idle application, arvos scan will not catch any vulnerability..
